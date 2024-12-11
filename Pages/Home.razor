@@ -1,0 +1,51 @@
+@page "/"
+@using NobelPrizeApp.Models
+@using NobelPrizeApp.Services
+@inject NobelPrizeService NobelPrizeService
+
+<PageTitle>Home</PageTitle>
+
+<h3>Nobel Prize Laureates</h3>
+
+@if (laureates == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (laureates.Count == 0)
+{
+    <p>No laureates found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var laureate in laureates)
+        {
+            <li>
+                <h4>@laureate.FullName.En (@laureate.NobelPrizes.FirstOrDefault()?.AwardYear)</h4>
+                <p>@laureate.NobelPrizes.FirstOrDefault()?.Motivation.En</p>
+                <p><strong>Category:</strong> @laureate.NobelPrizes.FirstOrDefault()?.Category.En</p>
+                <p><strong>Birth Date:</strong> @laureate.Birth?.Date</p>
+                <p><strong>Birth Place:</strong> @laureate.Birth?.Place?.City?.En, @laureate.Birth?.Place?.Country?.En</p>
+                <p><a href="@laureate.Wikipedia?.English" target="_blank">Wikipedia</a></p>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Laureate> laureates = new List<Laureate>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            laureates = await NobelPrizeService.GetLaureatesAsync();
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception (e.g., log it, show an error message, etc.)
+            Console.Error.WriteLine($"Error fetching laureates: {ex.Message}");
+            laureates = new List<Laureate>();
+        }
+    }
+}

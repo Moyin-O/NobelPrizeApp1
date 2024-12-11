@@ -1,0 +1,70 @@
+﻿@page "/laureates"
+@using NobelPrizeApp.Services
+@inject NobelPrizeService NobelPrizeService
+@using NobelPrizeApp.Models
+
+<h3>Nobel Laureates</h3>
+
+<input type="text" @bind="searchTerm" @oninput="OnSearchTermChanged" placeholder="Search laureates..." class="form-control mb-3" />
+
+@if (filteredLaureates == null)
+{
+    <p>Loading...</p>
+}
+else if (filteredLaureates.Count == 0)
+{
+    <p>No laureates found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var laureate in filteredLaureates)
+        {
+            <li>
+                <LaureateCard Laureate="laureate" />
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Laureate> laureates = new List<Laureate>();
+    private List<Laureate> filteredLaureates = new List<Laureate>();
+    private string searchTerm = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            laureates = await NobelPrizeService.GetLaureatesAsync();
+            filteredLaureates = laureates;
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception (e.g., log it, show an error message, etc.)
+            Console.Error.WriteLine($"Error fetching laureates: {ex.Message}");
+            laureates = new List<Laureate>();
+            filteredLaureates = new List<Laureate>();
+        }
+    }
+
+    private void FilterLaureates()
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            filteredLaureates = laureates;
+        }
+        else
+        {
+            filteredLaureates = laureates
+                .Where(l => l.FullName?.En != null && l.FullName.En.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+    }
+
+    private void OnSearchTermChanged(ChangeEventArgs e)
+    {
+        searchTerm = e.Value?.ToString() ?? string.Empty;
+        FilterLaureates();
+    }
+}

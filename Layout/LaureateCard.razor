@@ -1,0 +1,20 @@
+#nullable enable
+@using NobelPrizeApp.Models
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Laureate?.FullName?.En</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Laureate?.NobelPrizes?.FirstOrDefault()?.AwardYear</h6>
+        <p class="card-text">@Laureate?.NobelPrizes?.FirstOrDefault()?.Motivation?.En</p>
+        <p class="card-text"><strong>Category:</strong> @Laureate?.NobelPrizes?.FirstOrDefault()?.Category?.En</p>
+        <p class="card-text"><strong>Birth Date:</strong> @Laureate?.Birth?.Date</p>
+        <p class="card-text"><strong>Birth Place:</strong> @Laureate?.Birth?.Place?.City?.En, @Laureate?.Birth?.Place?.Country?.En</p>
+        <a href="@Laureate?.Wikipedia?.English" class="card-link" target="_blank">Wikipedia</a>
+    </div>
+</div>
+
+@code {
+    #nullable enable
+    [Parameter]
+    public Laureate? Laureate { get; set; }
+}
