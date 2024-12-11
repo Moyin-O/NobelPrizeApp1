@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NobelPrizeApp.Services;
+using NobelPrizeApp; // Add this line to include the namespace for the App component
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
