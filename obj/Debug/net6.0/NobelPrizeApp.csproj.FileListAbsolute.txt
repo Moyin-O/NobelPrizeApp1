@@ -1,0 +1,7 @@
+C:\Users\lizzy\NobelPrizeApp\obj\Debug\net6.0\NobelPrizeApp.csproj.AssemblyReference.cache
+C:\Users\lizzy\NobelPrizeApp\obj\Debug\net6.0\NobelPrizeApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lizzy\NobelPrizeApp\obj\Debug\net6.0\NobelPrizeApp.AssemblyInfoInputs.cache
+C:\Users\lizzy\NobelPrizeApp\obj\Debug\net6.0\NobelPrizeApp.AssemblyInfo.cs
+C:\Users\lizzy\NobelPrizeApp\obj\Debug\net6.0\NobelPrizeApp.csproj.CoreCompileInputs.cache
+C:\Users\lizzy\NobelPrizeApp\obj\Debug\net6.0\NobelPrizeApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\lizzy\NobelPrizeApp\obj\Debug\net6.0\NobelPrizeApp.sourcelink.json
